@@ -1,34 +1,42 @@
 {
-  "name": "MyHANAAApp",
+  "name": "MyHANAApp",
   "version": "1.0.0",
   "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^6",
+    "@sap/audit-logging": "^5.0.0",
+    "@sap/cds": "^5",
+    "@sap/hana-client": "^2.6.61",
+    "@sap/xsenv": "^3.1.0",
+    "@sap/xssec": "^3.2.0",
     "express": "^4",
-    "hdb": "^0.19.0"
+    "hdb": "^0.19.5",
+    "passport": "^0.4.1"
   },
   "scripts": {
-    "start": "cds run"
+    "start": "cds serve srv/csn.json"
   },
-"cds": {
-    "build": {
-        "tasks": [
-            {
-                "for": "hana",
-                "dest": "../db"
-            },
-            {
-                "for": "node-cf"
-            }
-        ]
+  "engines": {
+    "node": "14.X"
+  },
+  "cds": {
+    "hana": {
+      "deploy-format": "hdbtable"
     },
     "requires": {
-        "db": {
-            "kind": "hana-cloud"
-        }
+      "db": {
+        "kind": "hana"
+      },
+      "uaa": {
+        "kind": "xsuaa"
+      }
     }
+  },
+  "sapux": [
+    "app/frontend"
+  ],
+  "devDependencies": {
+    "@sap/hdi-deploy": "4.6.1"
   }
 }
